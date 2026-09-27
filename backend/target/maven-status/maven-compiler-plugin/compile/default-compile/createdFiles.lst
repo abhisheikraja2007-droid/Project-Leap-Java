@@ -6,9 +6,11 @@ com\agripulse\projectleap\presenter\MasterDataController.class
 com\agripulse\projectleap\ProjectLeapApplication.class
 com\agripulse\projectleap\model\CustomerInvoice.class
 com\agripulse\projectleap\model\SalesOrder.class
+com\agripulse\projectleap\repository\AccountRepository.class
 com\agripulse\projectleap\model\SalesOrder$SalesOrderStatus.class
 com\agripulse\projectleap\model\Account.class
 com\agripulse\projectleap\view\BudgetReportView$BudgetReportViewBuilder.class
+com\agripulse\projectleap\repository\CustomerInvoiceRepository.class
 com\agripulse\projectleap\model\Payment.class
 com\agripulse\projectleap\model\JournalEntry$JournalEntryBuilder.class
 com\agripulse\projectleap\model\Journal.class
@@ -19,6 +21,7 @@ com\agripulse\projectleap\model\SalesOrder$SalesOrderBuilder.class
 com\agripulse\projectleap\repository\TelemetryRepository.class
 com\agripulse\projectleap\model\Contact.class
 com\agripulse\projectleap\presenter\MasterDataService.class
+com\agripulse\projectleap\repository\ProductRepository.class
 com\agripulse\projectleap\model\Account$AccountType.class
 com\agripulse\projectleap\model\PurchaseOrder.class
 com\agripulse\projectleap\presenter\IrrigationSalesService.class
@@ -38,9 +41,11 @@ com\agripulse\projectleap\view\TelemetryRequestDTO.class
 com\agripulse\projectleap\presenter\TelemetryController.class
 com\agripulse\projectleap\view\FinancialSnapshotView$ProfitAndLossStatement$ProfitAndLossStatementBuilder.class
 com\agripulse\projectleap\view\FinancialSnapshotView.class
+com\agripulse\projectleap\repository\ContactRepository.class
 com\agripulse\projectleap\model\VendorBill.class
 com\agripulse\projectleap\view\BudgetReportView$SectorBudgetItem.class
 com\agripulse\projectleap\view\TelemetryRequestDTO$TelemetryRequestDTOBuilder.class
+com\agripulse\projectleap\repository\SalesOrderRepository.class
 com\agripulse\projectleap\model\Payment$PaymentDirection.class
 com\agripulse\projectleap\model\Contact$ContactType.class
 com\agripulse\projectleap\model\CustomerInvoice$CustomerInvoiceBuilder.class

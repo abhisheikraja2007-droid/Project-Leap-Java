@@ -3,21 +3,28 @@ package com.agripulse.projectleap.presenter;
 import com.agripulse.projectleap.model.Contact;
 import com.agripulse.projectleap.model.CustomerInvoice;
 import com.agripulse.projectleap.model.SalesOrder;
+import com.agripulse.projectleap.repository.CustomerInvoiceRepository;
+import com.agripulse.projectleap.repository.SalesOrderRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.List;
 
 @Service
 public class IrrigationSalesService {
 
-    private final Map<String, SalesOrder> salesOrders = new ConcurrentHashMap<>();
-    private final Map<String, CustomerInvoice> invoices = new ConcurrentHashMap<>();
-    private long orderSequence = 8920;
-    private long invoiceSequence = 4820;
+    private final SalesOrderRepository salesOrderRepository;
+    private final CustomerInvoiceRepository customerInvoiceRepository;
+
+    @Autowired
+    public IrrigationSalesService(SalesOrderRepository salesOrderRepository,
+                                  CustomerInvoiceRepository customerInvoiceRepository) {
+        this.salesOrderRepository = salesOrderRepository;
+        this.customerInvoiceRepository = customerInvoiceRepository;
+    }
 
     /**
      * Business Rule Implementation:
@@ -26,8 +33,11 @@ public class IrrigationSalesService {
      */
     public CustomerInvoice processDeficitDispatchEvent(String sectorId, BigDecimal currentMoisture, int minutesBelowThreshold, Contact customer) {
         if (currentMoisture.compareTo(BigDecimal.valueOf(20.0)) < 0 && minutesBelowThreshold > 120) {
+            
             // 1. Generate Sales Order for automated precision irrigation dispatch
-            String soNumber = "SO-IRR-" + (++orderSequence);
+            long nextOrderId = salesOrderRepository.count() + 8920;
+            String soNumber = "SO-IRR-" + nextOrderId;
+            
             SalesOrder salesOrder = SalesOrder.builder()
                     .orderNumber(soNumber)
                     .customer(customer)
@@ -39,10 +49,12 @@ public class IrrigationSalesService {
                     .dispatchedAt(LocalDateTime.now())
                     .build();
 
-            salesOrders.put(soNumber, salesOrder);
+            salesOrder = salesOrderRepository.save(salesOrder);
 
             // 2. Automatically convert the dispatched Sales Order to a Customer Invoice
-            String invNumber = "INV-" + (++invoiceSequence);
+            long nextInvoiceId = customerInvoiceRepository.count() + 4820;
+            String invNumber = "INV-" + nextInvoiceId;
+            
             CustomerInvoice invoice = CustomerInvoice.builder()
                     .invoiceNumber(invNumber)
                     .salesOrder(salesOrder)
@@ -54,8 +66,10 @@ public class IrrigationSalesService {
                     .createdAt(LocalDateTime.now())
                     .build();
 
+            invoice = customerInvoiceRepository.save(invoice);
+            
             salesOrder.setStatus(SalesOrder.SalesOrderStatus.INVOICED);
-            invoices.put(invNumber, invoice);
+            salesOrderRepository.save(salesOrder);
 
             return invoice;
         }
@@ -64,10 +78,10 @@ public class IrrigationSalesService {
     }
 
     public List<SalesOrder> getAllSalesOrders() {
-        return new ArrayList<>(salesOrders.values());
+        return salesOrderRepository.findAll();
     }
 
     public List<CustomerInvoice> getAllInvoices() {
-        return new ArrayList<>(invoices.values());
+        return customerInvoiceRepository.findAll();
     }
 }
