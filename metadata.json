@@ -1,0 +1,7 @@
+{
+  "name": "AgriPulse OS - Precision Agronomy & Irrigation",
+  "description": "Precision agronomy, automated irrigation dispatch, master data registry, ERP financials, and executive analytics powered by Gemini intelligence.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
