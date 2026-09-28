@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { TelemetryDispatchView } from '../../views/TelemetryDispatchView';
-import { vi } from 'vitest';
+import { vi, describe, it, expect } from 'vitest';
 
 describe('TelemetryDispatchView Component', () => {
   it('triggers an alert state when moisture is submitted below 20%', async () => {
