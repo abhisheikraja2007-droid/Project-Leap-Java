@@ -37,3 +37,4 @@ public class Journal {
         entry.setJournal(this);
     }
 }
+

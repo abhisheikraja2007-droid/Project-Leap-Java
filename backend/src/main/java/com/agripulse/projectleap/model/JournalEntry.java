@@ -36,3 +36,4 @@ public class JournalEntry {
     @Column(name = "analytic_sector")
     private String analyticSector; // e.g. "Sector 4-B (Corn V8)", "Wellhead Station #3"
 }
+

@@ -57,3 +57,4 @@ public class TelemetryReading {
         if (timestamp == null) timestamp = LocalDateTime.now();
     }
 }
+
